@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-// 1. Updated Interface with new corporate database fields
 interface User {
   id: string;
   name: string;
@@ -17,13 +16,11 @@ function App() {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const [currentRole, setCurrentRole] = useState<string>('Employee');
 
-  // Core Form Controls
   const [userId, setUserId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState<number | ''>('');
   
-  // NEW STATE: Form controls for additional database properties
   const [department, setDepartment] = useState('IT');
   const [position, setPosition] = useState('');
   const [hireDate, setHireDate] = useState('');
@@ -61,7 +58,6 @@ function App() {
     e.preventDefault();
     setStatusMessage('');
 
-    // 2. Packaging the expanded database properties into the JSON payload
     const payload = {
       id: userId,
       name,
@@ -91,7 +87,6 @@ function App() {
       const finalName = result.name || name;
       setStatusMessage(`✅ Employee ${finalName} added successfully!`);
       
-      // Reset Form Fields
       setUserId('');
       setName('');
       setEmail('');
@@ -142,7 +137,6 @@ function App() {
       <main>
         <h3>Active Working Session: <span style={{ color: '#007bff' }}>{currentRole}</span></h3>
 
-        {/* 3. EXPANDED DETAILED TABLE: Renders all new structural parameters */}
         {showDetailedTable && (
           <section className="detailed-table-section" style={{ marginBottom: '30px' }}>
             <h4>Detailed Corporate Directory Matrix</h4>
@@ -186,7 +180,6 @@ function App() {
           </section>
         )}
 
-        {/* 4. EXPANDED REGISTRATION FORM: Capture rich database fields */}
         {currentRole === 'Administrator' ? (
           <div className="form-section">
             <h4>Add New Corporate Employee</h4>
@@ -208,7 +201,6 @@ function App() {
                 <input type="number" value={age} onChange={(e) => setAge(e.target.value === '' ? '' : Number(e.target.value))} placeholder="Min value 18" />
               </div>
 
-              {/* NEW INTERACTIVE FIELDS */}
               <div className="form-group">
                 <label>Corporate Department:</label>
                 <select value={department} onChange={(e) => setDepartment(e.target.value)}>
@@ -245,7 +237,6 @@ function App() {
           </div>
         )}
 
-        {/* SHARED VIEW: Extended Profile Summary Cards */}
         <section>
           <h4>Corporate Directory Registry ({users.length} Users Found)</h4>
           {users.length === 0 ? (
